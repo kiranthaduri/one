@@ -8,7 +8,7 @@
     <groupId>in.javahome</groupId>
     <artifactId>myweb</artifactId>
 
-    <!-- ✅ CHANGE WAR → JAR -->
+    <!-- ✅ WAR required -->
     <packaging>war</packaging>
 
     <version>8.5.8</version>
@@ -33,6 +33,8 @@
     </dependencies>
 
     <build>
+        <finalName>myweb</finalName>
+
         <plugins>
 
             <!-- ✅ Java 17 Compiler -->
@@ -46,16 +48,19 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Spring Boot plugin (safe even if non-spring now) -->
+            <!-- ✅ VERY IMPORTANT: Java 17 compatible WAR plugin -->
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
 
         </plugins>
     </build>
 
-    <!-- ✅ Distribution management is OK -->
     <distributionManagement>
         <snapshotRepository>
             <id>nexusRepo</id>
@@ -69,4 +74,5 @@
     </distributionManagement>
 
 </project>
+
 
